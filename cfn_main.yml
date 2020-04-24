@@ -1,0 +1,65 @@
+---
+- name: Test Playbook to test Async and Poll
+  hosts: localhost
+  become: yes
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: cfn stack1
+      cloudformation:
+        stack_name: "stack1"
+        state: "present"
+        region: "us-east-1"
+        disable_rollback: true
+        template: "files/cloudformation-example.json"
+        template_parameters:
+          KeyName: "stack1"
+      async: 1800
+      poll: 0
+      register: stack2
+    - name: cfn stack2
+      cloudformation:
+        stack_name: "stack2"
+        state: "present"
+        region: "us-east-1"
+        disable_rollback: true
+        template: "files/cloudformation-example.json"
+        template_parameters:
+          KeyName: "stack2"
+
+    - name: cfn stack3
+      cloudformation:
+        stack_name: "stack3"
+        state: "present"
+        region: "us-east-1"
+        disable_rollback: true
+        template: "files/cloudformation-example.json"
+        template_parameters:
+          KeyName: "stack3"
+      async: 1800
+      poll: 0
+      register: stack1
+
+    - name: cfn stack4
+      cloudformation:
+        stack_name: "stack4"
+        state: "present"
+        region: "us-east-1"
+        disable_rollback: true
+        template: "files/cloudformation-example.json"
+        template_parameters:
+          KeyName: "stack4"
+
+    - name: cfn stack5
+      cloudformation:
+        stack_name: "stack5"
+        state: "present"
+        region: "us-east-1"
+        disable_rollback: true
+        template: "files/cloudformation-example.json"
+        template_parameters:
+          KeyName: "stack5"
+      async: 1800
+      poll: 0
+      register: stack5
