@@ -4,32 +4,31 @@
   become: yes
   connection: local
   gather_facts: no
-  strategy: free
 
   tasks:
     - name: httpd
-      import_tasks: tasks/httpd_task.yml
+      include: tasks/httpd_task.yml
       async: 1800
       poll: 0
       register: http
     - name: nc
-      import_tasks: tasks/nc_task.yml
+      include: tasks/nc_task.yml
       async: 1800
       poll: 0
       register: nc
     - name: java
-      import_tasks: tasks/java_task.yml
+      include: tasks/java_task.yml
       async: 1800
       poll: 0
       register: java
     - name: git
-      import_tasks: tasks/git_task.yml
+      include: tasks/git_task.yml
       async: 1800
       poll: 0
       register: git
 
     - name: sleepscript
-      import_tasks: tasks/sleep_script_task.yml
+      include: tasks/sleep_script_task.yml
       async: 180 
       poll: 0 
       register: scrout
