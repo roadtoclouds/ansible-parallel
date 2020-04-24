@@ -1,0 +1,5 @@
+---
+- name: install httpd
+  yum: name=httpd update_cache=yes
+- name: Ensure httpd is started.
+  service: name=httpd state=started

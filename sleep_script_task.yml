@@ -1,0 +1,11 @@
+---
+- name: Copy the script 
+    copy: 
+    src: "longrunningscript.sh"
+    dest: "/tmp"
+    
+- name: Execute the script
+    shell:
+    "chmod a+x /tmp/longrunningscript.sh &&  /tmp/longrunningscript.sh 120" 
+
+    
