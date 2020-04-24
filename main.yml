@@ -4,8 +4,8 @@
   become: yes
   connection: local
   gather_facts: no
-  stragegy: free
-  
+  strategy: free
+
   tasks:
     - name: httpd
       import_tasks: tasks/httpd_task.yml
