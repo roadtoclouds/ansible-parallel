@@ -35,9 +35,7 @@
 
     - name: Checking the Job Status
       async_status:
-      jid: "{{ scrout.ansible_job_id }}"
+        jid: "{{ scrout.ansible_job_id }}"
       register: job_result
       until: job_result.finished
       retries: 30
-
-
