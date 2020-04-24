@@ -1,6 +1,6 @@
 ---
 - name: Copy the script 
-    copy: 
+    copy:
     src: "longrunningscript.sh"
     dest: "/tmp"
     
