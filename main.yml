@@ -4,6 +4,7 @@
   become: yes
   connection: local
   gather_facts: no
+  stragegy: free
   
   tasks:
     - name: httpd
