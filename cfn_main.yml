@@ -17,7 +17,9 @@
           KeyName: "stack1"
       async: 1800
       poll: 0
-      register: stack2
+      register: stack1
+      notify: launch_cmsdb_nodes_stack
+
     - name: cfn stack2
       cloudformation:
         stack_name: "stack2"
@@ -27,6 +29,9 @@
         template: "files/cloudformation-example.json"
         template_parameters:
           KeyName: "stack2"
+      async: 1800
+      poll: 0
+      register: stack2
 
     - name: cfn stack3
       cloudformation:
@@ -39,7 +44,7 @@
           KeyName: "stack3"
       async: 1800
       poll: 0
-      register: stack1
+      register: stack3
 
     - name: cfn stack4
       cloudformation:
@@ -60,6 +65,3 @@
         template: "files/cloudformation-example.json"
         template_parameters:
           KeyName: "stack5"
-      async: 1800
-      poll: 0
-      register: stack5

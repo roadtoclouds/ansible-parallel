@@ -1,0 +1,57 @@
+---
+- name: Test Playbook to test Async and Poll
+  hosts: localhost
+  become: yes
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: layer_1
+      async: 0
+      poll: 0
+      block:
+        - name: httpd
+          include: tasks/httpd_task.yml
+          register: http
+        - debug:
+            var: http
+        - name: nc
+          include: tasks/nc_task.yml
+          register: nc
+        - debug:
+            var: nc
+      vars: 
+        - abc: '123'
+        - name: "test"
+
+  - name: layer_2
+    async: 0
+    poll: 0
+    block:
+      - name: java
+        include: tasks/java_task.yml
+        register: java
+      - debug:
+          var: java
+      - name: sleepscript
+        include: tasks/sleep_script_task.yml
+        register: scrout
+      - debug:
+          var: scrout
+    vars:
+      - test123: 'abc'
+      - name: "bca"
+
+  - name: task_3
+    # import_tasks: 'echo "sleep" && sleep 20 && echo "yes"'
+    include: tasks/git_task.yml
+    vars:
+      - test123: 'abc'
+      - name: "bca"
+
+    - name: Checking the Job Status
+      async_status:
+        jid: "{{ scrout.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
