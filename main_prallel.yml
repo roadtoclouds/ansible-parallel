@@ -11,7 +11,7 @@
       import_tasks: tasks/sleep_script_task.yml
       async: 1800
       poll: 0
-      register: http
+      register: scrout
 
     - name: nc
       import_tasks: tasks/sleep_script_task.yml
@@ -21,7 +21,7 @@
 
     - name: Checking the http Job Status
       async_status:
-        jid: "{{ http.ansible_job_id }}"
+        jid: "{{ scrout.ansible_job_id }}"
       register: job_result
       until: job_result.finished
       retries: 30
