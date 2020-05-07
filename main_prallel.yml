@@ -5,43 +5,33 @@
   connection: local
   gather_facts: no
 
-
   tasks:
-    - name: httpd
+    - name: task
       import_tasks: tasks/sleep_script_task.yml
-      # async: 1800
-      # poll: 0
-      # register: scrout
-    - name: nc
-      import_tasks: tasks/sleep_script_task.yml
-      # async: 1800
-      # poll: 0
-      # register: nc
 
-    - name: Checking the http Job Status
+    - name: task1
+      import_tasks: tasks/sleep_script_task_1.yml
+   
+    - name: Checking the task Job Status
       async_status:
-        jid: "{{ scrout.ansible_job_id }}"
+        jid: "{{ task.ansible_job_id }}"
       register: job_result
       until: job_result.finished
       retries: 30
 
-    # - name: Checking the nc Job Status
-    #   async_status:
-    #     jid: "{{ nc.ansible_job_id }}"
-    #   register: job_result
-    #   until: job_result.finished
-    #   retries: 30
+    - name: Checking the task1 Job Status
+      async_status:
+        jid: "{{ task1.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
 
     - name: java
       import_tasks: tasks/java_task.yml
-      # async: 1800
-      # poll: 0
-      # register: java
+
     - name: git
       import_tasks: tasks/git_task.yml
-      # async: 1800
-      # poll: 0s
-      # register: git
+
 
     # - name: sleepscript
     #   import_tasks: tasks/sleep_script_task.yml
