@@ -9,3 +9,4 @@
     "chmod a+x /tmp/longrunningscript.sh &&  /tmp/longrunningscript.sh 60" 
   async: 1800
   poll: 0
+  register: scrout
