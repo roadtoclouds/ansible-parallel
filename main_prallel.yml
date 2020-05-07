@@ -12,16 +12,16 @@
     - name: task1
       import_tasks: tasks/sleep_script_task_1.yml
    
-    - name: Checking the task Job Status
+    - name: Checking the task1 Job Status
       async_status:
-        jid: "{{ task.ansible_job_id }}"
+        jid: "{{ task1.ansible_job_id }}"
       register: job_result
       until: job_result.finished
       retries: 30
 
-    - name: Checking the task1 Job Status
+    - name: Checking the task Job Status
       async_status:
-        jid: "{{ task1.ansible_job_id }}"
+        jid: "{{ task.ansible_job_id }}"
       register: job_result
       until: job_result.finished
       retries: 30
