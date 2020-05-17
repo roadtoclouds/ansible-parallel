@@ -16,7 +16,6 @@
         template_parameters: "{{ item.template_parameters }}"
         profile: default
         region: "us-east-1"
-        debug_botocore_endpoint_logs: true
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
     
