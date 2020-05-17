@@ -4,7 +4,8 @@
   become: yes
   connection: local
   gather_facts: no
-  vars_files: vars/main.yaml
+  vars_files:
+    - "./vars/main.yml"
 
   tasks:
     - name: Create 2 CF stacks in parallel
