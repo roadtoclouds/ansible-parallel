@@ -19,6 +19,7 @@
         debug_botocore_endpoint_logs: true
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
+      - debug: msg=""
 
     - async_status:
         jid: "{{item.ansible_job_id}}"
