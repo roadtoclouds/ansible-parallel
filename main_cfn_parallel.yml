@@ -14,7 +14,7 @@
         state: "present"
         template: "{{ item.name }}.yml"
         template_parameters: "{{ item.template_parameters }}"
-        role_arn: "arn:aws:iam::738751711163:role/vpc-EC2Role-DV47Q9MXXXSD"
+        profile: default
         region: "us-east-1"
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
