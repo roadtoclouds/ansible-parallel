@@ -2,11 +2,12 @@
 - hosts: localhost
   connection: local
   gather_facts: yes
-  vars_files:
-    - "./vars/main.yml"
+
 
   tasks:
-    - name: Create 2 CF stacks in parallel
+    - name: Create 3 CF stacks in parallel
+      vars_files:
+        - "./vars/var1.yml"
       async: 1800
       poll: 0
       cloudformation:
@@ -14,7 +15,6 @@
         state: "present"
         template: "{{ item.name }}.yml"
         template_parameters: "{{ item.template_parameters }}"
-        # profile: default
         region: "us-east-1"
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
@@ -22,17 +22,30 @@
     - debug:
         var: cf_stack_async_results
 
-    # - debug:
-    #     msg= "{{ item.ansible_job_id }}"
-    #     # verbosity: 2
-    #   with_items: cf_stack_async_results.results
+    - name: Wait for stacks to complate
+      async_status: jid={{ item.ansible_job_id }}
+      register: cfn_jobs
+      until: cfn_jobs.finished
+      retries: 30
+      with_items: "{{ cf_stack_async_results.results }}"
 
-    # - async_status:
-    #     jid: "{{item.ansible_job_id}}"
-    #   
-    #   register: cf_stack_async_poll_results
-    #   until: cf_stack_async_poll_results.finished
-    #   retries: 30
+
+    - name: Create 2 CF stacks in parallel
+      vars_files:
+        - "./vars/var1.yml"
+      async: 1800
+      poll: 0
+      cloudformation:
+        stack_name: "{{ item.name }}"
+        state: "present"
+        template: "{{ item.name }}.yml"
+        template_parameters: "{{ item.template_parameters }}"
+        region: "us-east-1"
+      with_items: "{{ CF_TEMPLATE_ITEMS }}"
+      register: cf_stack_async_results
+    
+    - debug:
+        var: cf_stack_async_results
 
     - name: Wait for stacks to complate
       async_status: jid={{ item.ansible_job_id }}
