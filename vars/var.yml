@@ -1,0 +1,16 @@
+CF_TEMPLATE_ITEMS:
+ - name: tasks/cfn_sg_1
+   template_parameters:
+      VPC: vpc-03062705111f0c71a
+      SecurityGroupName: sg1
+      RoleName: r1
+ - name: tasks/cfn_sg_2
+   template_parameters:
+      VPC: vpc-03062705111f0c71a
+      SecurityGroupName: sg2
+      RoleName: r2
+ - name: tasks/cfn_sg_3
+   template_parameters:
+      VPC: vpc-03062705111f0c71a
+      SecurityGroupName: sg3
+      RoleName: r3
