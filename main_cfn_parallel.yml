@@ -1,9 +1,7 @@
 ---
-- name: Test Playbook to test Async and Poll
-  hosts: localhost
-  become: yes
+- hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: yes
   vars_files:
     - "./vars/main.yml"
 
