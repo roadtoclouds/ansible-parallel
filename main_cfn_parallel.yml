@@ -19,7 +19,9 @@
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
     
-    # - debug: msg=""
+    - debug:
+      var: cf_stack_async_results
+      
     - debug:
         msg= "{{ item.ansible_job_id }}"
         # verbosity: 2
