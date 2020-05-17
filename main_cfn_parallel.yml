@@ -21,7 +21,7 @@
     
     # - debug: msg=""
     - debug: 
-        var: cf_stack_async_results
+        var: cf_stack_async_results.results
         # verbosity: 2
 
     - async_status:
