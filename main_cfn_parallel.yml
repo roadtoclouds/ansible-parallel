@@ -39,4 +39,4 @@
       register: cfn_jobs
       until: cfn_jobs.finished
       retries: 30
-      with_items: {{ cf_stack_async_results.results }}
+      with_items: "{{ cf_stack_async_results.results }}"
