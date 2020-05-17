@@ -21,12 +21,13 @@
     
     # - debug: msg=""
     - debug:
-        var: cf_stack_async_results
+        var: {{ item.ansible_job_id }}
         # verbosity: 2
+        with_items: cf_stack_async_results.results
 
     # - async_status:
     #     jid: "{{item.ansible_job_id}}"
-    #   with_items: cf_stack_async_results.results
+    #   
     #   register: cf_stack_async_poll_results
     #   until: cf_stack_async_poll_results.finished
     #   retries: 30
