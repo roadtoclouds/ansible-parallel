@@ -1,17 +1,25 @@
-- name: Create 2 CF stacks in parallel
-  async: 1800
-  poll: 0
-  cloudformation:
-    stack_name: "{{ item.name }}"
-    state: "present"
-    template: "{{ item.name }}.yml"
-    template_parameters: "{{ item.template_parameters }}"
-  with_items: "{{ CF_TEMPLATE_ITEMS }}"
-  register: cf_stack_async_results
+---
+- name: Test Playbook to test Async and Poll
+  hosts: localhost
+  become: yes
+  connection: local
+  gather_facts: no
 
-- async_status:
-    jid: "{{item.ansible_job_id}}"
-  with_items: cf_stack_async_results.results
-  register: cf_stack_async_poll_results
-  until: cf_stack_async_poll_results.finished
-  retries: 30
+  tasks:
+    - name: Create 2 CF stacks in parallel
+      async: 1800
+      poll: 0
+      cloudformation:
+        stack_name: "{{ item.name }}"
+        state: "present"
+        template: "{{ item.name }}.yml"
+        template_parameters: "{{ item.template_parameters }}"
+      with_items: "{{ CF_TEMPLATE_ITEMS }}"
+      register: cf_stack_async_results
+
+    - async_status:
+        jid: "{{item.ansible_job_id}}"
+      with_items: cf_stack_async_results.results
+      register: cf_stack_async_poll_results
+      until: cf_stack_async_poll_results.finished
+      retries: 30
