@@ -22,10 +22,10 @@
     - debug:
         var: cf_stack_async_results
 
-    - debug:
-        msg= "{{ item.ansible_job_id }}"
-        # verbosity: 2
-      with_items: cf_stack_async_results.results
+    # - debug:
+    #     msg= "{{ item.ansible_job_id }}"
+    #     # verbosity: 2
+    #   with_items: cf_stack_async_results.results
 
     # - async_status:
     #     jid: "{{item.ansible_job_id}}"
@@ -33,3 +33,10 @@
     #   register: cf_stack_async_poll_results
     #   until: cf_stack_async_poll_results.finished
     #   retries: 30
+
+    - name: Wait for stacks to complate
+      async_status: jid={{ item.ansible_job_id }}
+      register: cfn_jobs
+      until: cfn_jobs.finished
+      retries: 30
+      with_items: {{ cf_stack_async_results.results }}
