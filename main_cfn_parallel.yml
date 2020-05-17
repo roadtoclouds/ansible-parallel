@@ -20,8 +20,8 @@
       register: cf_stack_async_results
     
     - debug:
-      var: cf_stack_async_results
-      
+        var: cf_stack_async_results
+
     - debug:
         msg= "{{ item.ansible_job_id }}"
         # verbosity: 2
