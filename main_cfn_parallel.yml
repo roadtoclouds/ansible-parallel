@@ -19,9 +19,9 @@
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
 
-    # - async_status:
-    #     jid: "{{item.ansible_job_id}}"
-    #   with_items: cf_stack_async_results.results
-    #   register: cf_stack_async_poll_results
-    #   until: cf_stack_async_poll_results.finished
-    #   retries: 30
+    - async_status:
+        jid: "{{item.ansible_job_id}}"
+      with_items: cf_stack_async_results.results
+      register: cf_stack_async_poll_results
+      until: cf_stack_async_poll_results.finished
+      retries: 30
