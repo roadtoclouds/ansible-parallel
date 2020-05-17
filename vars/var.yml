@@ -1,4 +1,4 @@
-CF_TEMPLATE_ITEMS:
+CFN1_TEMPLATE_ITEMS:
  - name: cfn-sg-1
    template_parameters:
       VPC: vpc-03062705111f0c71a
@@ -14,3 +14,15 @@ CF_TEMPLATE_ITEMS:
       VPC: vpc-03062705111f0c71a
       SecurityGroupName: sg3
       RoleName: r3
+    
+CFN2_TEMPLATE_ITEMS:
+ - name: cfn-sg-4
+   template_parameters:
+      VPC: vpc-03062705111f0c71a
+      SecurityGroupName: sg4
+      RoleName: r4
+ - name: cfn-sg-5
+   template_parameters:
+      VPC: vpc-03062705111f0c71a
+      SecurityGroupName: sg5
+      RoleName: r5

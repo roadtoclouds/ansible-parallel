@@ -2,11 +2,10 @@
 - hosts: localhost
   connection: local
   gather_facts: yes
-
+  vars_files:
+    - "./vars/var.yml"
   tasks:
     - name: Create 3 CF stacks in parallel
-      include_vars:
-        file: "./vars/var1.yml"
       async: 1800
       poll: 0
       cloudformation:
@@ -15,7 +14,7 @@
         template: "{{ item.name }}.yml"
         template_parameters: "{{ item.template_parameters }}"
         region: "us-east-1"
-      with_items: "{{ CF_TEMPLATE_ITEMS }}"
+      with_items: "{{ CFN1_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
     
     - debug:
@@ -28,10 +27,7 @@
       retries: 30
       with_items: "{{ cf_stack_async_results.results }}"
 
-
     - name: Create 2 CF stacks in parallel
-      include_vars:
-        file: "./vars/var2.yml"
       async: 1800
       poll: 0
       cloudformation:
@@ -40,7 +36,7 @@
         template: "{{ item.name }}.yml"
         template_parameters: "{{ item.template_parameters }}"
         region: "us-east-1"
-      with_items: "{{ CF_TEMPLATE_ITEMS }}"
+      with_items: "{{ CFN2_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
     
     - debug:
