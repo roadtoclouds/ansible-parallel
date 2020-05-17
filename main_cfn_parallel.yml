@@ -21,7 +21,10 @@
       register: cf_stack_async_results
     
     - debug: msg=""
-  
+    - debug: 
+        var: cf_stack_async_results
+        verbosity: 2
+
     - async_status:
         jid: "{{item.ansible_job_id}}"
       with_items: cf_stack_async_results.results
