@@ -9,6 +9,7 @@
     - name: Create 2 CF stacks in parallel
       async: 1800
       poll: 0
+      include_vars: vars/main.yaml
       cloudformation:
         stack_name: "{{ item.name }}"
         state: "present"
