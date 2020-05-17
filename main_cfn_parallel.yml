@@ -14,7 +14,7 @@
         state: "present"
         template: "{{ item.name }}.yml"
         template_parameters: "{{ item.template_parameters }}"
-        profile: default
+        # profile: default
         region: "us-east-1"
       with_items: "{{ CF_TEMPLATE_ITEMS }}"
       register: cf_stack_async_results
