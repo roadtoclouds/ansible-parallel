@@ -23,7 +23,7 @@
     - debug:
         var: {{ item.ansible_job_id }}
         # verbosity: 2
-        with_items: cf_stack_async_results.results
+      with_items: cf_stack_async_results.results
 
     # - async_status:
     #     jid: "{{item.ansible_job_id}}"
