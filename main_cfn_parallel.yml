@@ -3,11 +3,10 @@
   connection: local
   gather_facts: yes
 
-
   tasks:
     - name: Create 3 CF stacks in parallel
-      vars_files:
-        - "./vars/var1.yml"
+      include_vars:
+        file: "./vars/var1.yml"
       async: 1800
       poll: 0
       cloudformation:
@@ -31,8 +30,8 @@
 
 
     - name: Create 2 CF stacks in parallel
-      vars_files:
-        - "./vars/var1.yml"
+      include_vars:
+        file: "./vars/var2.yml"
       async: 1800
       poll: 0
       cloudformation:
